@@ -1,6 +1,6 @@
 # 浅谈JS中 reduce( ) 的用法用法
 ### 一、语法
-```
+```js
 arr.reduce(function(prev,cur,index,arr){  
   ...  
   }, init);
@@ -16,7 +16,7 @@ arr.reduce(function(prev,cur,index,arr){
 ### 二、实例
 
 现提供一个数组：  
-```
+```js
 var arr = [2,3,6,8,3,2,6]
 ```
 
@@ -24,7 +24,7 @@ var arr = [2,3,6,8,3,2,6]
 
 #### 1.求数组项之和
 
-```
+```js
 var sum = arr.reduce(function (prev, cur) {  
     return prev + cur;  
 },0);
@@ -34,7 +34,7 @@ var sum = arr.reduce(function (prev, cur) {
 
 #### 2.求数组项最大
 
-```
+```js
 var max = arr.reduce(function (prev, cur) {  
     return Math.max(prev,cur);  
 });
@@ -44,7 +44,7 @@ var max = arr.reduce(function (prev, cur) {
 
 ### 3.数组去重
 
-```
+```js
 var newArr = arr.reduce(function (prev, cur) {  
     prev.indexOf(cur) === -1 && prev.push(cur);  
     return prev;  
@@ -72,6 +72,12 @@ var newArr = arr.reduce(function (prev, cur) {
 
 ### 重点总结：
 >reduce() 是数组的归并方法，与forEach()、map()、filter()等迭代方法一样都会对数组每一项进行遍历，但是reduce() 可同时将前面数组项遍历产生的结果与当前遍历项进行运算，这一点是其他迭代方法无法企及的
+
+
+
+
+
+
 
 
 
