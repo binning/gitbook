@@ -6,7 +6,6 @@ arr.reduce(function(prev,cur,index,arr){
   }, init);
 ```
 
-
 其中，  
 **arr** 表示原数组；  
 **prev** 表示上一次调用回调时的返回值，或者初始值 init;  
