@@ -1,8 +1,10 @@
 # 浅谈JS中 reduce( ) 的用法用法
 ### 一、语法
->arr.reduce(function(prev,cur,index,arr){  
+```
+arr.reduce(function(prev,cur,index,arr){  
   ...  
   }, init);
+```
 
 
 其中，  
@@ -15,32 +17,40 @@
 ### 二、实例
 
 现提供一个数组：  
->var arr = [2,3,6,8,3,2,6]
+```
+var arr = [2,3,6,8,3,2,6]
+```
 
 实现以下需求的方式有很多，其中就包含使用reduce()的求解方式，也算是实现起来比较简洁的一种吧
 
 #### 1.求数组项之和
 
->var sum = arr.reduce(function (prev, cur) {  
+```
+var sum = arr.reduce(function (prev, cur) {  
     return prev + cur;  
 },0);
+```
 
 由于传入了初始值0，所以开始时prev的值为0，cur的值为数组第一项3，相加之后返回值为3作为下一轮回调的prev值，然后再继续与下一个数组项相加，以此类推，直至完成所有数组项的和并返回。
 
 #### 2.求数组项最大
 
->var max = arr.reduce(function (prev, cur) {  
+```
+var max = arr.reduce(function (prev, cur) {  
     return Math.max(prev,cur);  
 });
+```
 
 由于未传入初始值，所以开始时prev的值为数组第一项3，cur的值为数组第二项9，取两值最大值后继续进入下一轮回调。
 
 ### 3.数组去重
 
->var newArr = arr.reduce(function (prev, cur) {  
+```
+var newArr = arr.reduce(function (prev, cur) {  
     prev.indexOf(cur) === -1 && prev.push(cur);  
     return prev;  
 },[]);
+```
 
 实现的基本原理如下：
 
