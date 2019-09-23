@@ -1,0 +1,366 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>继承原理 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="reduce.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    前言
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../基础题/基础题.html">
+            
+                <a href="../基础题/基础题.html">
+            
+                    
+                    前端题库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    前端
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="reduce.html">
+            
+                <a href="reduce.html">
+            
+                    
+                    reduce用法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3.2" data-path="继承.html">
+            
+                <a href="继承.html">
+            
+                    
+                    继承原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >继承原理</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#x7EE7;&#x627F;&#x539F;&#x7406;">&#x7EE7;&#x627F;&#x539F;&#x7406;</h1>
+<h3 id="1&#x539F;&#x578B;&#x94FE;&#x7EE7;&#x627F;">1.&#x539F;&#x578B;&#x94FE;&#x7EE7;&#x627F;</h3>
+<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fatherFn</span>(<span class="hljs-params"></span>)</span>{
+  <span class="hljs-keyword">this</span>.some = <span class="hljs-string">&quot;&#x7236;&#x7C7B;&#x7684;this&#x5C5E;&#x6027;&quot;</span>
+}
+fatherFn.prototype.fatherFnSome = <span class="hljs-string">&apos;&#x7236;&#x7C7B;&#x539F;&#x578B;&#x5BF9;&#x8C61;&#x7684;&#x5C5E;&#x6027;&#x6216;&#x65B9;&#x6CD5;&apos;</span>
+<span class="hljs-comment">//&#x5B50;&#x7C7B;</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sonFn</span>(<span class="hljs-params"></span>)</span>{
+  <span class="hljs-keyword">this</span>.obkoro1 = <span class="hljs-string">&quot;&#x5B50;&#x7C7B;&#x7684;this&#x5C5E;&#x6027;&quot;</span>
+};
+<span class="hljs-comment">//&#x6838;&#x5FC3;&#x6B65;&#x9AA4;&#xFF0C;&#x91CD;&#x5199;&#x5B50;&#x7C7B;&#x7684;&#x5C5E;&#x6027;&#x6216;&#x8005;&#x65B9;&#x6CD5;</span>
+sonfn.prototype = <span class="hljs-keyword">new</span> fatherFn();<span class="hljs-comment">//&#x5C06;fatherFn&#x7684;&#x5B9E;&#x4F8B;&#x8D4B;&#x503C;&#x7ED9;sonFn&#x7684;prototype</span>
+sonFn.prototype.sonFnSome = <span class="hljs-string">&quot;&#x5B50;&#x7C7B;&#x539F;&#x578B;&#x961F;&#x5F62;&#x7684;&#x5C5E;&#x6027;&#x6216;&#x65B9;&#x6CD5;&quot;</span><span class="hljs-comment">//&#x5B50;&#x7C7B;&#x7684;&#x5C5E;&#x6027;/&#x65B9;&#x6CD5;&#x58F0;&#x660E;&#x5728;&#x540E;&#x9762;&#xFF0C;&#x907F;&#x514D;&#x88AB;&#x8986;&#x76D6;</span>
+<span class="hljs-comment">//&#x5B9E;&#x4F8B;&#x5316;&#x5B50;&#x7C7B;</span>
+<span class="hljs-keyword">const</span> sonFnInstance = <span class="hljs-keyword">new</span> sonFn();
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;&#x5B50;&#x7C7B;&#x7684;&#x5B9E;&#x4F8B;&quot;</span>,sonFnInstance);
+</code></pre>
+<h4 id="&#x539F;&#x578B;&#x94FE;&#x7EE7;&#x627F;&#x83B7;&#x53D6;&#x7236;&#x7C7B;&#x7684;&#x5C5E;&#x6027;&#x548C;&#x65B9;&#x6CD5;">&#x539F;&#x578B;&#x94FE;&#x7EE7;&#x627F;&#x83B7;&#x53D6;&#x7236;&#x7C7B;&#x7684;&#x5C5E;&#x6027;&#x548C;&#x65B9;&#x6CD5;</h4>
+<p>1.fatherFn&#x901A;&#x8FC7;this&#x58F0;&#x660E;&#x7684;&#x5C5E;&#x6027;/&#x65B9;&#x6CD5;&#x90FD;&#x4F1A;&#x7ED1;&#x5B9A;&#x5728;new&#x671F;&#x95F4;&#x521B;&#x5EFA;&#x7684;&#x65B0;&#x5BF9;&#x8C61;&#x4E0A;&#x3002;<br>2.&#x65B0;&#x5BF9;&#x8C61;&#x7684;&#x539F;&#x578B;&#x662F;father.prototype,&#x901A;&#x8FC7;&#x539F;&#x578B;&#x94FE;&#x7684;&#x5C5E;&#x6027;&#x67E5;&#x627E;&#x5230;father.prototype&#x7684;&#x5C5E;&#x6027;&#x548C;&#x65B9;&#x6CD5;&#x3002;  </p>
+<h4 id="&#x7406;&#x89E3;new&#x505A;&#x4E86;&#x4EC0;&#x4E48;&#xFF1A;">&#x7406;&#x89E3;new&#x505A;&#x4E86;&#x4EC0;&#x4E48;&#xFF1A;</h4>
+<blockquote>
+<p>new&#x5728;&#x672C;&#x6587;&#x51FA;&#x73B0;&#x591A;&#x6B21;&#xFF0C;new&#x4E5F;&#x662F;JS&#x57FA;&#x7840;&#x4E2D;&#x5F88;&#x91CD;&#x8981;&#x7684;&#x4E00;&#x5757;&#x5185;&#x5BB9;&#xFF0C;&#x5F88;&#x591A;&#x77E5;&#x8BC6;&#x70B9;&#x4F1A;&#x6D89;&#x53CA;&#x5230;new&#xFF0C;&#x4E0D;&#x592A;&#x7406;&#x89E3;&#x7684;&#x8981;&#x591A;&#x770B;&#x51E0;&#x904D;.</p>
+</blockquote>
+<p>1.&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x5168;&#x65B0;&#x7684;&#x5BF9;&#x8C61;&#x3002;<br>2.&#x8FD9;&#x4E2A;&#x65B0;&#x5BF9;&#x8C61;&#x7684;&#x539F;&#x578B;(<strong>proto</strong>)&#x6307;&#x5411;&#x51FD;&#x6570;&#x7684;prototype&#x5BF9;&#x8C61;&#x3002;<br>3.&#x6267;&#x884C;&#x51FD;&#x6570;&#xFF0C;&#x51FD;&#x6570;&#x7684;this&#x4F1A;&#x7ED1;&#x5B9A;&#x5728;&#x65B0;&#x521B;&#x5EFA;&#x7684;&#x5BF9;&#x8C61;&#x4E0A;&#x3002;<br>4.&#x5982;&#x679C;&#x51FD;&#x6570;&#x6CA1;&#x6709;&#x8FD4;&#x56DE;&#x5176;&#x4ED6;&#x5BF9;&#x8C61;(&#x5305;&#x62EC;&#x6570;&#x7EC4;&#x3001;&#x51FD;&#x6570;&#x3001;&#x65E5;&#x671F;&#x5BF9;&#x8C61;&#x7B49;)&#xFF0C;&#x90A3;&#x4E48;&#x4F1A;&#x81EA;&#x52A8;&#x8FD4;&#x56DE;&#x8FD9;&#x4E2A;&#x65B0;&#x5BF9;&#x8C61;&#x3002;<br>5.&#x8FD4;&#x56DE;&#x7684;&#x90A3;&#x4E2A;&#x5BF9;&#x8C61;&#x4E3A;&#x6784;&#x9020;&#x51FD;&#x6570;&#x7684;&#x5B9E;&#x4F8B;&#x3002;</p>
+<h3 id="2&#x7EC4;&#x5408;&#x7EE7;&#x627F;">2.&#x7EC4;&#x5408;&#x7EE7;&#x627F;</h3>
+<blockquote>
+<p>&#x539F;&#x7406;&#xFF1A;&#x4F7F;&#x7528;&#x539F;&#x578B;&#x94FE;&#x7EE7;&#x627F;(new)&#x5C06;this&#x548C;prototype&#x58F0;&#x660E;&#x7684;&#x5C5E;&#x6027;/&#x65B9;&#x6CD5;&#x7EE7;&#x627F;&#x81F3;&#x5B50;&#x7C7B;&#x7684;prototype&#x4E0A;&#xFF0C;&#x4F7F;&#x7528;&#x501F;&#x7528;&#x6784;&#x9020;&#x51FD;&#x6570;&#x6765;&#x7EE7;&#x627F;&#x7236;&#x7C7B;&#x901A;&#x8FC7;this&#x58F0;&#x660E;&#x5C5E;&#x6027;&#x548C;&#x65B9;&#x6CD5;&#x81F3;&#x5B50;&#x7C7B;&#x5B9E;&#x4F8B;&#x7684;&#x5C5E;&#x6027;&#x4E0A;&#x3002;   </p>
+</blockquote>
+<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fatherFn</span>(<span class="hljs-params">...arr</span>) </span>{
+  <span class="hljs-keyword">this</span>.some = <span class="hljs-string">&apos;&#x7236;&#x7C7B;&#x7684;this&#x5C5E;&#x6027;&apos;</span>;
+  <span class="hljs-keyword">this</span>.params = arr <span class="hljs-comment">// &#x7236;&#x7C7B;&#x7684;&#x53C2;&#x6570;</span>
+}
+fatherFn.prototype.fatherFnSome = <span class="hljs-string">&apos;&#x7236;&#x7C7B;&#x539F;&#x578B;&#x5BF9;&#x8C61;&#x7684;&#x5C5E;&#x6027;&#x6216;&#x8005;&#x65B9;&#x6CD5;&apos;</span>;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sonFn</span>(<span class="hljs-params"></span>) </span>{
+  fatherFn.call(<span class="hljs-keyword">this</span>, <span class="hljs-string">&apos;&#x501F;&#x7528;&#x6784;&#x9020;&#x7EE7;&#x627F;&apos;</span>, <span class="hljs-string">&apos;&#x7B2C;&#x4E8C;&#x6B21;&#x8C03;&#x7528;&apos;</span>); <span class="hljs-comment">// &#x501F;&#x7528;&#x6784;&#x9020;&#x7EE7;&#x627F;: &#x7EE7;&#x627F;&#x7236;&#x7C7B;&#x901A;&#x8FC7;this&#x58F0;&#x660E;&#x5C5E;&#x6027;&#x548C;&#x65B9;&#x6CD5;&#x81F3;&#x5B50;&#x7C7B;&#x5B9E;&#x4F8B;&#x7684;&#x5C5E;&#x6027;&#x4E0A;</span>
+  <span class="hljs-keyword">this</span>.obkoro1 = <span class="hljs-string">&apos;&#x5B50;&#x7C7B;&#x7684;this&#x5C5E;&#x6027;&apos;</span>;
+}
+sonFn.prototype = <span class="hljs-keyword">new</span> fatherFn(<span class="hljs-string">&apos;&#x539F;&#x578B;&#x94FE;&#x7EE7;&#x627F;&apos;</span>, <span class="hljs-string">&apos;&#x7B2C;&#x4E00;&#x6B21;&#x8C03;&#x7528;&apos;</span>); <span class="hljs-comment">// &#x539F;&#x578B;&#x94FE;&#x7EE7;&#x627F;: &#x5C06;`this`&#x548C;`prototype`&#x58F0;&#x660E;&#x7684;&#x5C5E;&#x6027;/&#x65B9;&#x6CD5;&#x7EE7;&#x627F;&#x81F3;&#x5B50;&#x7C7B;&#x7684;`prototype`&#x4E0A;</span>
+sonFn.prototype.sonFnSome = <span class="hljs-string">&apos;&#x5B50;&#x7C7B;&#x539F;&#x578B;&#x5BF9;&#x8C61;&#x7684;&#x5C5E;&#x6027;&#x6216;&#x8005;&#x65B9;&#x6CD5;&apos;</span>
+<span class="hljs-keyword">const</span> sonFnInstance = <span class="hljs-keyword">new</span> sonFn();
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&apos;&#x7EC4;&#x5408;&#x7EE7;&#x627F;&#x5B50;&#x7C7B;&#x5B9E;&#x4F8B;&apos;</span>, sonFnInstance)
+</code></pre>
+<h3 id="3&#x5BC4;&#x751F;&#x7EC4;&#x5408;&#x5F0F;&#x7EE7;&#x627F;">3.&#x5BC4;&#x751F;&#x7EC4;&#x5408;&#x5F0F;&#x7EE7;&#x627F;</h3>
+<p>1.&#x4F7F;&#x7528;&#x501F;&#x7528;&#x6784;&#x9020;&#x51FD;&#x6570;(call)&#x6765;&#x7EE7;&#x627F;&#x7236;&#x7C7B;this&#x58F0;&#x660E;&#x7684;&#x5C5E;&#x6027;/&#x65B9;&#x6CD5;.<br>2.&#x901A;&#x8FC7;&#x5BC4;&#x751F;&#x5F0F;&#x5C01;&#x88C5;&#x51FD;&#x6570;&#x8BBE;&#x7F6E;&#x7236;&#x7C7B;prototype&#x4E3A;&#x5B50;&#x7C7B;prototype&#x7684;&#x539F;&#x578B;&#x6765;&#x7EE7;&#x627F;&#x7236;&#x7C7B;&#x7684;prototype&#x58F0;&#x660E;&#x7684;&#x5C5E;&#x6027;/&#x65B9;&#x6CD5;&#x3002;</p>
+<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fatherFn</span>(<span class="hljs-params">...arr</span>) </span>{
+  <span class="hljs-keyword">this</span>.some = <span class="hljs-string">&apos;&#x7236;&#x7C7B;&#x7684;this&#x5C5E;&#x6027;&apos;</span>;
+  <span class="hljs-keyword">this</span>.params = arr <span class="hljs-comment">// &#x7236;&#x7C7B;&#x7684;&#x53C2;&#x6570;</span>
+}
+fatherFn.prototype.fatherFnSome = <span class="hljs-string">&apos;&#x7236;&#x7C7B;&#x539F;&#x578B;&#x5BF9;&#x8C61;&#x7684;&#x5C5E;&#x6027;&#x6216;&#x8005;&#x65B9;&#x6CD5;&apos;</span>;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sonFn</span>(<span class="hljs-params"></span>) </span>{
+  fatherFn.call(<span class="hljs-keyword">this</span>, <span class="hljs-string">&apos;&#x501F;&#x7528;&#x6784;&#x9020;&#x7EE7;&#x627F;&apos;</span>); <span class="hljs-comment">// &#x6838;&#x5FC3;1 &#x501F;&#x7528;&#x6784;&#x9020;&#x7EE7;&#x627F;: &#x7EE7;&#x627F;&#x7236;&#x7C7B;&#x901A;&#x8FC7;this&#x58F0;&#x660E;&#x5C5E;&#x6027;&#x548C;&#x65B9;&#x6CD5;&#x81F3;&#x5B50;&#x7C7B;&#x5B9E;&#x4F8B;&#x7684;&#x5C5E;&#x6027;&#x4E0A;</span>
+  <span class="hljs-keyword">this</span>.obkoro1 = <span class="hljs-string">&apos;&#x5B50;&#x7C7B;&#x7684;this&#x5C5E;&#x6027;&apos;</span>;
+}
+<span class="hljs-comment">// &#x6838;&#x5FC3;2 &#x5BC4;&#x751F;&#x5F0F;&#x7EE7;&#x627F;&#xFF1A;&#x5C01;&#x88C5;&#x4E86;son.prototype&#x5BF9;&#x8C61;&#x539F;&#x578B;&#x5F0F;&#x7EE7;&#x627F;father.prototype&#x7684;&#x8FC7;&#x7A0B;&#xFF0C;&#x5E76;&#x4E14;&#x589E;&#x5F3A;&#x4E86;&#x4F20;&#x5165;&#x7684;&#x5BF9;&#x8C61;&#x3002;</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">inheritPrototype</span>(<span class="hljs-params">son, father</span>) </span>{
+  <span class="hljs-keyword">const</span> fatherFnPrototype = <span class="hljs-built_in">Object</span>.create(father.prototype); <span class="hljs-comment">// &#x539F;&#x578B;&#x5F0F;&#x7EE7;&#x627F;&#xFF1A;&#x6D45;&#x62F7;&#x8D1D;father.prototype&#x5BF9;&#x8C61; father.prototype&#x4E3A;&#x65B0;&#x5BF9;&#x8C61;&#x7684;&#x539F;&#x578B;</span>
+  son.prototype = fatherFnPrototype; <span class="hljs-comment">// &#x8BBE;&#x7F6E;father.prototype&#x4E3A;son.prototype&#x7684;&#x539F;&#x578B;</span>
+  son.prototype.constructor = son; <span class="hljs-comment">// &#x4FEE;&#x6B63;constructor &#x6307;&#x5411;</span>
+}
+inheritPrototype(sonFn, fatherFn)
+sonFn.prototype.sonFnSome = <span class="hljs-string">&apos;&#x5B50;&#x7C7B;&#x539F;&#x578B;&#x5BF9;&#x8C61;&#x7684;&#x5C5E;&#x6027;&#x6216;&#x8005;&#x65B9;&#x6CD5;&apos;</span>
+<span class="hljs-keyword">const</span> sonFnInstance = <span class="hljs-keyword">new</span> sonFn();
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&apos;&#x5BC4;&#x751F;&#x7EC4;&#x5408;&#x5F0F;&#x7EE7;&#x627F;&#x5B50;&#x7C7B;&#x5B9E;&#x4F8B;&apos;</span>, sonFnInstance)
+</code></pre>
+<h3 id="4es6-extends&#x7EE7;&#x627F;&#xFF1A;">4.ES6 extends&#x7EE7;&#x627F;&#xFF1A;</h3>
+<p>ES6 extends&#x6838;&#x5FC3;&#x4EE3;&#x7801;&#xFF1A;</p>
+<p>&#x8FD9;&#x6BB5;&#x4EE3;&#x7801;&#x662F;&#x901A;&#x8FC7;babel&#x5728;&#x7EBF;&#x7F16;&#x8BD1;&#x6210;es5, &#x7528;&#x4E8E;&#x5B50;&#x7C7B;prototype&#x539F;&#x578B;&#x5F0F;&#x7EE7;&#x627F;&#x7236;&#x7C7B;prototype&#x7684;&#x5C5E;&#x6027;/&#x65B9;&#x6CD5;&#x3002;  </p>
+<pre><code class="lang-js"><span class="hljs-comment">// &#x5BC4;&#x751F;&#x5F0F;&#x7EE7;&#x627F; &#x5C01;&#x88C5;&#x7EE7;&#x627F;&#x8FC7;&#x7A0B;</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_inherits</span>(<span class="hljs-params">son, father</span>) </span>{
+  <span class="hljs-comment">// &#x539F;&#x578B;&#x5F0F;&#x7EE7;&#x627F;: &#x8BBE;&#x7F6E;father.prototype&#x4E3A;son.prototype&#x7684;&#x539F;&#x578B; &#x7528;&#x4E8E;&#x7EE7;&#x627F;father.prototype&#x7684;&#x5C5E;&#x6027;/&#x65B9;&#x6CD5;</span>
+  son.prototype = <span class="hljs-built_in">Object</span>.create(father &amp;&amp; father.prototype);
+  son.prototype.constructor = son; <span class="hljs-comment">// &#x4FEE;&#x6B63;constructor &#x6307;&#x5411;</span>
+  <span class="hljs-comment">// &#x5C06;&#x7236;&#x7C7B;&#x8BBE;&#x7F6E;&#x4E3A;&#x5B50;&#x7C7B;&#x7684;&#x539F;&#x578B; &#x7528;&#x4E8E;&#x7EE7;&#x627F;&#x7236;&#x7C7B;&#x7684;&#x9759;&#x6001;&#x5C5E;&#x6027;/&#x65B9;&#x6CD5;(father.some)</span>
+  <span class="hljs-keyword">if</span> (father) {
+    <span class="hljs-built_in">Object</span>.setPrototypeOf
+      ? <span class="hljs-built_in">Object</span>.setPrototypeOf(son, father)
+      : son.__proto__ = father;
+  }
+}
+</code></pre>
+<p>&#x53E6;&#x5916;&#x5B50;&#x7C7B;&#x662F;&#x901A;&#x8FC7;&#x501F;&#x7528;&#x6784;&#x9020;&#x51FD;&#x6570;&#x7EE7;&#x627F;(call)&#x6765;&#x7EE7;&#x627F;&#x7236;&#x7C7B;&#x901A;&#x8FC7;this&#x58F0;&#x660E;&#x7684;&#x5C5E;&#x6027;/&#x65B9;&#x6CD5;&#xFF0C;&#x4E5F;&#x8DDF;&#x5BC4;&#x751F;&#x7EC4;&#x5408;&#x5F0F;&#x7EE7;&#x627F;&#x4E00;&#x6837;&#x3002;  </p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="reduce.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: reduce用法">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"继承原理","level":"1.3.2","depth":2,"previous":{"title":"reduce用法","level":"1.3.1","depth":2,"path":"前端/reduce.md","ref":"前端/reduce.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"前端/继承.md","mtime":"2019-09-23T07:08:21.465Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-09-23T07:00:32.966Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
