@@ -488,34 +488,32 @@ context.fn = <span class="hljs-keyword">this</span>
 </li>
 <li><p>5.&#x624B;&#x5199;&#x4E00;&#x4E2A;&#x7EE7;&#x627F;</p>
 </li>
-<li>6.&#x624B;&#x5199;&#x4E00;&#x4E2A;JS&#x51FD;&#x6570;&#x67EF;&#x91CC;&#x5316;&#x548C;&#x53CD;&#x67EF;&#x91CC;&#x5316;
+<li>6.&#x624B;&#x5199;&#x4E00;&#x4E2A;JS&#x51FD;&#x6570;&#x67EF;&#x91CC;&#x5316;&#x548C;&#x53CD;&#x67EF;&#x91CC;&#x5316;<pre><code class="lang-js"><span class="hljs-comment">// &#x5177;&#x540D;&#x51FD;&#x6570;&#x5199;&#x6CD5;(&#x66F4;&#x6D45;&#x663E;&#x6613;&#x61C2;&#xFF0C;&#x660E;&#x786E;&#x7684;&#x8FD4;&#x56DE;&#x5177;&#x540D;&#x51FD;&#x6570;)</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">curry</span>(<span class="hljs-params">fn, ...params</span>) </span>{
+  <span class="hljs-keyword">let</span> _args = params || []
+  <span class="hljs-keyword">let</span> len = fn.length
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_fn</span>(<span class="hljs-params">...rest</span>) </span>{
+      <span class="hljs-built_in">Array</span>.prototype.push.call(_args, ...rest)
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&apos;_args :&apos;</span>, _args, <span class="hljs-string">&apos;, rest :&apos;</span>, ...rest)
+      <span class="hljs-keyword">if</span> (_args.length &gt;= len) {
+          <span class="hljs-comment">/**
+           * &#x4E0D;&#x7F6E;&#x7A7A;
+           */</span>
+          <span class="hljs-comment">// return fn.apply(this, _args)</span>
+          <span class="hljs-comment">/**
+           * &#x7F6E;&#x7A7A;
+           */</span>
+          <span class="hljs-keyword">let</span> _newArgs = <span class="hljs-built_in">Array</span>.from(_args)
+          _args = []
+          <span class="hljs-keyword">return</span> fn.apply(<span class="hljs-keyword">this</span>, _newArgs)
+      }
+      <span class="hljs-keyword">return</span> _fn
+  }
+}
+</code></pre>
 ```js</li>
 </ul>
-<p>// &#x5177;&#x540D;&#x51FD;&#x6570;&#x5199;&#x6CD5;(&#x66F4;&#x6D45;&#x663E;&#x6613;&#x61C2;&#xFF0C;&#x660E;&#x786E;&#x7684;&#x8FD4;&#x56DE;&#x5177;&#x540D;&#x51FD;&#x6570;)
-function curry(fn, ...params) {
-    let _args = params || []
-    let len = fn.length
-    return function _fn(...rest) {
-        Array.prototype.push.call(_args, ...rest)
-        console.log(&apos;_args :&apos;, _args, &apos;, rest :&apos;, ...rest)
-        if (_args.length &gt;= len) {
-            /**</p>
-<pre><code>         * &#x4E0D;&#x7F6E;&#x7A7A;
-         */
-        // return fn.apply(this, _args)
-        /**
-         * &#x7F6E;&#x7A7A;
-         */
-        let _newArgs = Array.from(_args)
-        _args = []
-        return fn.apply(this, _newArgs)
-    }
-    return _fn
-}
-</code></pre><p>}</p>
-<pre><code>```js
-
-Function.prototype.uncurrying = function() {
+<p>Function.prototype.uncurrying = function() {
     let _this = this // &#x8FD9;&#x91CC;&#x6307; Array.prototype.push
     return function() {
         return Function.prototype.call.apply(_this, arguments)
@@ -529,43 +527,40 @@ Function.prototype.uncurrying = function() {
 }
 let push = Array.prototype.push.uncurrying()
 let obj = {}
-push(obj, &apos;hh&apos;) // obj &#x4EE3;&#x8868; Array.prototype.push &#x7684;&#x4E0A;&#x4E0B;&#x6587;&#xFF0C;&#x540E;&#x9762;&#x7684;&#x90FD;&#x662F;&#x53C2;&#x6570; Array.prototype.push &#x7684;&#x53C2;&#x6570;
-
-// &#x5B9E;&#x9645;&#x4E0A;&#x5E73;&#x5E38;&#x6211;&#x4EEC;&#x662F;&#x8FD9;&#x4E48;&#x5199;&#x7684;
-Array.prototype.push.call(obj, &apos;hh&apos;) // obj &#x4EE3;&#x8868; Array.prototype.push &#x7684;&#x4E0A;&#x4E0B;&#x6587;&#xFF0C;&#x540E;&#x9762;&#x7684;&#x90FD;&#x662F;&#x53C2;&#x6570; Array.prototype.push &#x7684;&#x53C2;&#x6570;
-</code></pre><ul>
-<li><p>7.&#x624B;&#x5199;&#x4E00;&#x4E2A;Promise
+push(obj, &apos;hh&apos;) // obj &#x4EE3;&#x8868; Array.prototype.push &#x7684;&#x4E0A;&#x4E0B;&#x6587;&#xFF0C;&#x540E;&#x9762;&#x7684;&#x90FD;&#x662F;&#x53C2;&#x6570; Array.prototype.push &#x7684;&#x53C2;&#x6570;</p>
+<p>// &#x5B9E;&#x9645;&#x4E0A;&#x5E73;&#x5E38;&#x6211;&#x4EEC;&#x662F;&#x8FD9;&#x4E48;&#x5199;&#x7684;
+Array.prototype.push.call(obj, &apos;hh&apos;) // obj &#x4EE3;&#x8868; Array.prototype.push &#x7684;&#x4E0A;&#x4E0B;&#x6587;&#xFF0C;&#x540E;&#x9762;&#x7684;&#x90FD;&#x662F;&#x53C2;&#x6570; Array.prototype.push &#x7684;&#x53C2;&#x6570;</p>
+<pre><code>
+- 7.&#x624B;&#x5199;&#x4E00;&#x4E2A;Promise
 ```js
 function Promise(excutor) {
-let self = this
-self.status = &apos;pending&apos;
-self.value = null
-self.reason = null
-self.onFulfilledCallbacks = []
-self.onRejectedCallbacks = []</p>
-<p>function resolve(value) {
-  if (self.status === &apos;pending&apos;) {</p>
-<pre><code>self.value = value
-self.status = &apos;fulfilled&apos;
-self.onFulfilledCallbacks.forEach(item =&gt; item())
-</code></pre><p>  }
-}</p>
-<p>function reject(reason) {
-  if (self.status === &apos;pending&apos;) {</p>
-<pre><code>self.reason = reason
-self.status = &apos;rejected&apos;
-self.onRejectedCallbacks.forEach(item =&gt; item())
-</code></pre><p>  }
+  let self = this
+  self.status = &apos;pending&apos;
+  self.value = null
+  self.reason = null
+  self.onFulfilledCallbacks = []
+  self.onRejectedCallbacks = []
+  function resolve(value) {
+    if (self.status === &apos;pending&apos;) {
+      self.value = value
+      self.status = &apos;fulfilled&apos;
+      self.onFulfilledCallbacks.forEach(item =&gt; item())
+    }
+  }
+  function reject(reason) {
+    if (self.status === &apos;pending&apos;) {
+      self.reason = reason
+      self.status = &apos;rejected&apos;
+      self.onRejectedCallbacks.forEach(item =&gt; item())
+    }
+  }
+  try {
+    excutor(resolve, reject)
+  } catch (err) {
+    reject(err)
+  }
 }
-try {
-  excutor(resolve, reject)
-} catch (err) {
-  reject(err)
-}
-}</p>
-</li>
-</ul>
-<p>Promise.prototype.then = function (onFulfilled, onRejected) {
+Promise.prototype.then = function (onFulfilled, onRejected) {
   onFulfilled = typeof onFulfilled === &apos;function&apos; ? onFulfilled :  function (data) {resolve(data)}
   onRejected = typeof onRejected === &apos;function&apos; ? onRejected : function (err) {throw err}
   let self = this
@@ -617,61 +612,50 @@ try {
       })
     })
   }
-}</p>
-<p>Promise.prototype.catch = function (fn) {
-  return this.then(null, fn)
-}</p>
-<pre><code>- 8.&#x624B;&#x5199;&#x9632;&#x6296;(Debouncing)&#x548C;&#x8282;&#x6D41;(Throttling)
-&#x9632;&#x6296;&#x52A8;&#xFF1A;
-```js
-function debounce(fn,wait=50,immediate) {
-    let timer;
-    return function() {
-        if(immediate) {
-            fn.apply(this,arguments)
-        }
-        if(timer) clearTimeout(timer)
-        timer = setTimeout(()=&gt; {
-            fn.apply(this,arguments)
-        },wait)
-    }
 }
-</code></pre><p>&#x8282;&#x6D41;&#xFF1A;</p>
-<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">throttle</span>(<span class="hljs-params">fn, wait</span>) </span>{
-    <span class="hljs-keyword">let</span> prev = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
-    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{ 
-        <span class="hljs-keyword">const</span> args = <span class="hljs-built_in">arguments</span>;
-        <span class="hljs-keyword">const</span> now = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
-        <span class="hljs-keyword">if</span> (now - prev &gt; wait) {
-            fn.apply(<span class="hljs-keyword">this</span>, args);
-            prev = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
-        }
-    }
+Promise.prototype.catch = function (fn) {
+  return this.then(null, fn)
+}
+</code></pre><ul>
+<li><p>8.&#x624B;&#x5199;&#x9632;&#x6296;(Debouncing)&#x548C;&#x8282;&#x6D41;(Throttling)
+&#x9632;&#x6296;&#x52A8;&#xFF1A;</p>
+<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">debounce</span>(<span class="hljs-params">fn,wait=50,immediate</span>) </span>{
+  <span class="hljs-keyword">let</span> timer;
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">if</span>(immediate) {
+          fn.apply(<span class="hljs-keyword">this</span>,<span class="hljs-built_in">arguments</span>)
+      }
+      <span class="hljs-keyword">if</span>(timer) clearTimeout(timer)
+      timer = setTimeout(()=&gt; {
+          fn.apply(<span class="hljs-keyword">this</span>,<span class="hljs-built_in">arguments</span>)
+      },wait)
+  }
+}
 </code></pre>
-<ul>
-<li>9.&#x624B;&#x5199;&#x4E00;&#x4E2A;JS&#x6DF1;&#x62F7;&#x8D1D;(&#x7531;&#x6D45;&#x5165;&#x6DF1;&#x591A;&#x79CD;&#x89E3;&#x6CD5;)</li>
+<p>&#x8282;&#x6D41;&#xFF1A;</p>
+<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">throttle</span>(<span class="hljs-params">fn, wait</span>) </span>{
+  <span class="hljs-keyword">let</span> prev = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{ 
+      <span class="hljs-keyword">const</span> args = <span class="hljs-built_in">arguments</span>;
+      <span class="hljs-keyword">const</span> now = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
+      <span class="hljs-keyword">if</span> (now - prev &gt; wait) {
+          fn.apply(<span class="hljs-keyword">this</span>, args);
+          prev = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
+      }
+  }
+</code></pre>
+</li>
+<li><p>9.&#x624B;&#x5199;&#x4E00;&#x4E2A;JS&#x6DF1;&#x62F7;&#x8D1D;(&#x7531;&#x6D45;&#x5165;&#x6DF1;&#x591A;&#x79CD;&#x89E3;&#x6CD5;)</p>
+</li>
 <li>10.&#x624B;&#x5199;&#x4E00;&#x4E2A;instanceOf&#x539F;&#x7406;
 ```js</li>
 </ul>
-<p>function instance_of(L, R) {//L &#x8868;&#x793A;&#x5DE6;&#x8868;&#x8FBE;&#x5F0F;&#xFF0C;R &#x8868;&#x793A;&#x53F3;&#x8868;&#x8FBE;&#x5F0F; </p>
-<pre><code>var O = R.prototype;   // &#x53D6; R &#x7684;&#x663E;&#x793A;&#x539F;&#x578B; 
-
-L = L.__proto__;  // &#x53D6; L &#x7684;&#x9690;&#x5F0F;&#x539F;&#x578B;
-
-while (true) {    
-
-    if (L === null)      
-
-         return false;   
-
-    if (O === L)  // &#x5F53; O &#x663E;&#x5F0F;&#x539F;&#x578B; &#x4E25;&#x683C;&#x7B49;&#x4E8E;  L&#x9690;&#x5F0F;&#x539F;&#x578B; &#x65F6;&#xFF0C;&#x8FD4;&#x56DE;true
-
-         return true;   
-
-    L = L.__proto__;  
-
-}
-</code></pre><p>}</p>
+<p>function instance<em>of(L, R) {//L &#x8868;&#x793A;&#x5DE6;&#x8868;&#x8FBE;&#x5F0F;&#xFF0C;R &#x8868;&#x793A;&#x53F3;&#x8868;&#x8FBE;&#x5F0F; 
+    var O = R.prototype;   // &#x53D6; R &#x7684;&#x663E;&#x793A;&#x539F;&#x578B; 
+    L = L.<strong>proto</strong>;  // &#x53D6; L &#x7684;&#x9690;&#x5F0F;&#x539F;&#x578B;
+    while (true) {<br>        if (L === null)<br>             return false;<br>        if (O === L)  // &#x5F53; O &#x663E;&#x5F0F;&#x539F;&#x578B; &#x4E25;&#x683C;&#x7B49;&#x4E8E;  L&#x9690;&#x5F0F;&#x539F;&#x578B; &#x65F6;&#xFF0C;&#x8FD4;&#x56DE;true
+             return true;<br>        L = L.<em>_proto</em></em>;<br>    }
+}</p>
 <pre><code>- 11.&#x624B;&#x5199;&#x4E00;&#x4E2A;map&#x548C;reduce
 ```js
 (function() {
@@ -708,56 +692,54 @@ while (true) {
     Object.prototype[&quot;selfMap&quot;] = selfMap;
 })();
 </code></pre><ul>
-<li>12.&#x624B;&#x5199;&#x5B9E;&#x73B0;&#x62D6;&#x62FD;</li>
-</ul>
-<pre><code class="lang-html">  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;drag&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;left:0;top:0;width:100px;height:100px&quot;</span>&gt;</span>&#x6309;&#x4F4F;&#x62D6;&#x52A8;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<li>12.&#x624B;&#x5199;&#x5B9E;&#x73B0;&#x62D6;&#x62FD;<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;drag&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;left:0;top:0;width:100px;height:100px&quot;</span>&gt;</span>&#x6309;&#x4F4F;&#x62D6;&#x52A8;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
 <pre><code class="lang-js"><span class="hljs-comment">// &#x83B7;&#x53D6;DOM&#x5143;&#x7D20;  </span>
-      <span class="hljs-keyword">let</span> dragDiv = <span class="hljs-built_in">document</span>.getElementsByClassName(<span class="hljs-string">&quot;drag&quot;</span>)[<span class="hljs-number">0</span>];
-      <span class="hljs-comment">// &#x9F20;&#x6807;&#x6309;&#x4E0B;&#x4E8B;&#x4EF6; &#x5904;&#x7406;&#x7A0B;&#x5E8F;</span>
-      <span class="hljs-keyword">let</span> putDown = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) </span>{
-          dragDiv.style.cursor = <span class="hljs-string">&quot;pointer&quot;</span>;
-          <span class="hljs-keyword">let</span> offsetX = <span class="hljs-built_in">parseInt</span>(dragDiv.style.left); <span class="hljs-comment">// &#x83B7;&#x53D6;&#x5F53;&#x524D;&#x7684;x&#x8F74;&#x8DDD;&#x79BB;</span>
-          <span class="hljs-keyword">let</span> offsetY = <span class="hljs-built_in">parseInt</span>(dragDiv.style.top); <span class="hljs-comment">// &#x83B7;&#x53D6;&#x5F53;&#x524D;&#x7684;y&#x8F74;&#x8DDD;&#x79BB;</span>
-          <span class="hljs-keyword">let</span> innerX = event.clientX - offsetX; <span class="hljs-comment">// &#x83B7;&#x53D6;&#x9F20;&#x6807;&#x5728;&#x65B9;&#x5757;&#x5185;&#x7684;x&#x8F74;&#x8DDD;</span>
-          <span class="hljs-keyword">let</span> innerY = event.clientY - offsetY; <span class="hljs-comment">// &#x83B7;&#x53D6;&#x9F20;&#x6807;&#x5728;&#x65B9;&#x5757;&#x5185;&#x7684;y&#x8F74;&#x8DDD;</span>
-          <span class="hljs-comment">// &#x6309;&#x4F4F;&#x9F20;&#x6807;&#x65F6;&#x4E3A;div&#x6DFB;&#x52A0;&#x4E00;&#x4E2A;border</span>
-          dragDiv.style.borderStyle = <span class="hljs-string">&quot;solid&quot;</span>;
-          dragDiv.style.borderColor = <span class="hljs-string">&quot;red&quot;</span>;
-          dragDiv.style.borderWidth = <span class="hljs-string">&quot;3px&quot;</span>;
-          <span class="hljs-comment">// &#x9F20;&#x6807;&#x79FB;&#x52A8;&#x7684;&#x65F6;&#x5019;&#x4E0D;&#x505C;&#x7684;&#x4FEE;&#x6539;div&#x7684;left&#x548C;top&#x503C;</span>
-          <span class="hljs-built_in">document</span>.onmousemove = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) </span>{
-              dragDiv.style.left = event.clientX - innerX + <span class="hljs-string">&quot;px&quot;</span>;
-              dragDiv.style.top = event.clientY - innerY + <span class="hljs-string">&quot;px&quot;</span>;
-              <span class="hljs-comment">// &#x8FB9;&#x754C;&#x5224;&#x65AD;</span>
-              <span class="hljs-keyword">if</span> (<span class="hljs-built_in">parseInt</span>(dragDiv.style.left) &lt;= <span class="hljs-number">0</span>) {
-                  dragDiv.style.left = <span class="hljs-string">&quot;0px&quot;</span>;
-              }
-              <span class="hljs-keyword">if</span> (<span class="hljs-built_in">parseInt</span>(dragDiv.style.top) &lt;= <span class="hljs-number">0</span>) {
-                  dragDiv.style.top = <span class="hljs-string">&quot;0px&quot;</span>;
-              }
-              <span class="hljs-keyword">if</span> (<span class="hljs-built_in">parseInt</span>(dragDiv.style.left) &gt;= <span class="hljs-built_in">window</span>.innerWidth - <span class="hljs-built_in">parseInt</span>(dragDiv.style.width)) {
-                  dragDiv.style.left = <span class="hljs-built_in">window</span>.innerWidth - <span class="hljs-built_in">parseInt</span>(dragDiv.style.width) + <span class="hljs-string">&quot;px&quot;</span>;
-              }
-              <span class="hljs-keyword">if</span> (<span class="hljs-built_in">parseInt</span>(dragDiv.style.top) &gt;= <span class="hljs-built_in">window</span>.innerHeight - <span class="hljs-built_in">parseInt</span>(dragDiv.style.height)) {
-                  dragDiv.style.top = <span class="hljs-built_in">window</span>.innerHeight - <span class="hljs-built_in">parseInt</span>(dragDiv.style.height) + <span class="hljs-string">&quot;px&quot;</span>;
-              }
-          }
-          <span class="hljs-comment">// &#x9F20;&#x6807;&#x62AC;&#x8D77;&#x65F6;&#xFF0C;&#x6E05;&#x9664;&#x7ED1;&#x5B9A;&#x5728;&#x6587;&#x6863;&#x4E0A;&#x7684;mousemove&#x548C;mouseup&#x4E8B;&#x4EF6;</span>
-          <span class="hljs-comment">// &#x5426;&#x5219;&#x9F20;&#x6807;&#x62AC;&#x8D77;&#x540E;&#x8FD8;&#x53EF;&#x4EE5;&#x7EE7;&#x7EED;&#x62D6;&#x62FD;&#x65B9;&#x5757;</span>
-          <span class="hljs-built_in">document</span>.onmouseup = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-              <span class="hljs-built_in">document</span>.onmousemove = <span class="hljs-literal">null</span>;
-              <span class="hljs-built_in">document</span>.onmouseup = <span class="hljs-literal">null</span>;
-              <span class="hljs-comment">// &#x6E05;&#x9664;border</span>
-              dragDiv.style.borderStyle = <span class="hljs-string">&quot;&quot;</span>;
-              dragDiv.style.borderColor = <span class="hljs-string">&quot;&quot;</span>;
-              dragDiv.style.borderWidth = <span class="hljs-string">&quot;&quot;</span>;
-          }
-      }
-      <span class="hljs-comment">// &#x7ED1;&#x5B9A;&#x9F20;&#x6807;&#x6309;&#x4E0B;&#x4E8B;&#x4EF6;</span>
-      dragDiv.addEventListener(<span class="hljs-string">&quot;mousedown&quot;</span>, putDown, <span class="hljs-literal">false</span>);
+    <span class="hljs-keyword">let</span> dragDiv = <span class="hljs-built_in">document</span>.getElementsByClassName(<span class="hljs-string">&quot;drag&quot;</span>)[<span class="hljs-number">0</span>];
+    <span class="hljs-comment">// &#x9F20;&#x6807;&#x6309;&#x4E0B;&#x4E8B;&#x4EF6; &#x5904;&#x7406;&#x7A0B;&#x5E8F;</span>
+    <span class="hljs-keyword">let</span> putDown = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) </span>{
+        dragDiv.style.cursor = <span class="hljs-string">&quot;pointer&quot;</span>;
+        <span class="hljs-keyword">let</span> offsetX = <span class="hljs-built_in">parseInt</span>(dragDiv.style.left); <span class="hljs-comment">// &#x83B7;&#x53D6;&#x5F53;&#x524D;&#x7684;x&#x8F74;&#x8DDD;&#x79BB;</span>
+        <span class="hljs-keyword">let</span> offsetY = <span class="hljs-built_in">parseInt</span>(dragDiv.style.top); <span class="hljs-comment">// &#x83B7;&#x53D6;&#x5F53;&#x524D;&#x7684;y&#x8F74;&#x8DDD;&#x79BB;</span>
+        <span class="hljs-keyword">let</span> innerX = event.clientX - offsetX; <span class="hljs-comment">// &#x83B7;&#x53D6;&#x9F20;&#x6807;&#x5728;&#x65B9;&#x5757;&#x5185;&#x7684;x&#x8F74;&#x8DDD;</span>
+        <span class="hljs-keyword">let</span> innerY = event.clientY - offsetY; <span class="hljs-comment">// &#x83B7;&#x53D6;&#x9F20;&#x6807;&#x5728;&#x65B9;&#x5757;&#x5185;&#x7684;y&#x8F74;&#x8DDD;</span>
+        <span class="hljs-comment">// &#x6309;&#x4F4F;&#x9F20;&#x6807;&#x65F6;&#x4E3A;div&#x6DFB;&#x52A0;&#x4E00;&#x4E2A;border</span>
+        dragDiv.style.borderStyle = <span class="hljs-string">&quot;solid&quot;</span>;
+        dragDiv.style.borderColor = <span class="hljs-string">&quot;red&quot;</span>;
+        dragDiv.style.borderWidth = <span class="hljs-string">&quot;3px&quot;</span>;
+        <span class="hljs-comment">// &#x9F20;&#x6807;&#x79FB;&#x52A8;&#x7684;&#x65F6;&#x5019;&#x4E0D;&#x505C;&#x7684;&#x4FEE;&#x6539;div&#x7684;left&#x548C;top&#x503C;</span>
+        <span class="hljs-built_in">document</span>.onmousemove = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) </span>{
+            dragDiv.style.left = event.clientX - innerX + <span class="hljs-string">&quot;px&quot;</span>;
+            dragDiv.style.top = event.clientY - innerY + <span class="hljs-string">&quot;px&quot;</span>;
+            <span class="hljs-comment">// &#x8FB9;&#x754C;&#x5224;&#x65AD;</span>
+            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">parseInt</span>(dragDiv.style.left) &lt;= <span class="hljs-number">0</span>) {
+                dragDiv.style.left = <span class="hljs-string">&quot;0px&quot;</span>;
+            }
+            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">parseInt</span>(dragDiv.style.top) &lt;= <span class="hljs-number">0</span>) {
+                dragDiv.style.top = <span class="hljs-string">&quot;0px&quot;</span>;
+            }
+            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">parseInt</span>(dragDiv.style.left) &gt;= <span class="hljs-built_in">window</span>.innerWidth - <span class="hljs-built_in">parseInt</span>(dragDiv.style.width)) {
+                dragDiv.style.left = <span class="hljs-built_in">window</span>.innerWidth - <span class="hljs-built_in">parseInt</span>(dragDiv.style.width) + <span class="hljs-string">&quot;px&quot;</span>;
+            }
+            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">parseInt</span>(dragDiv.style.top) &gt;= <span class="hljs-built_in">window</span>.innerHeight - <span class="hljs-built_in">parseInt</span>(dragDiv.style.height)) {
+                dragDiv.style.top = <span class="hljs-built_in">window</span>.innerHeight - <span class="hljs-built_in">parseInt</span>(dragDiv.style.height) + <span class="hljs-string">&quot;px&quot;</span>;
+            }
+        }
+        <span class="hljs-comment">// &#x9F20;&#x6807;&#x62AC;&#x8D77;&#x65F6;&#xFF0C;&#x6E05;&#x9664;&#x7ED1;&#x5B9A;&#x5728;&#x6587;&#x6863;&#x4E0A;&#x7684;mousemove&#x548C;mouseup&#x4E8B;&#x4EF6;</span>
+        <span class="hljs-comment">// &#x5426;&#x5219;&#x9F20;&#x6807;&#x62AC;&#x8D77;&#x540E;&#x8FD8;&#x53EF;&#x4EE5;&#x7EE7;&#x7EED;&#x62D6;&#x62FD;&#x65B9;&#x5757;</span>
+        <span class="hljs-built_in">document</span>.onmouseup = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+            <span class="hljs-built_in">document</span>.onmousemove = <span class="hljs-literal">null</span>;
+            <span class="hljs-built_in">document</span>.onmouseup = <span class="hljs-literal">null</span>;
+            <span class="hljs-comment">// &#x6E05;&#x9664;border</span>
+            dragDiv.style.borderStyle = <span class="hljs-string">&quot;&quot;</span>;
+            dragDiv.style.borderColor = <span class="hljs-string">&quot;&quot;</span>;
+            dragDiv.style.borderWidth = <span class="hljs-string">&quot;&quot;</span>;
+        }
+    }
+    <span class="hljs-comment">// &#x7ED1;&#x5B9A;&#x9F20;&#x6807;&#x6309;&#x4E0B;&#x4E8B;&#x4EF6;</span>
+    dragDiv.addEventListener(<span class="hljs-string">&quot;mousedown&quot;</span>, putDown, <span class="hljs-literal">false</span>);
 </code></pre>
-<ul>
+</li>
 <li>13.&#x4F7F;&#x7528;setTimeout&#x6A21;&#x62DF;setInterval
 ```js
 //&#x7528;setTimeout&#x6A21;&#x4EFF;setInterval
@@ -794,7 +776,6 @@ var s = MyInterVal(&quot;console.log(1)&quot;,1000)</p>
 },5000)</p>
 <pre><code>- 14.&#x624B;&#x5199;&#x5B9E;&#x73B0;Object.create&#x7684;&#x57FA;&#x672C;&#x539F;&#x7406;   
 ```js
-
 // &#x601D;&#x8DEF;&#xFF1A;&#x5C06;&#x4F20;&#x5165;&#x7684;&#x5BF9;&#x8C61;&#x4F5C;&#x4E3A;&#x539F;&#x578B;
 function create(obj) {
   function F() {}
@@ -847,7 +828,7 @@ function create(obj) {
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"前端题库","level":"1.2","depth":1,"next":{"title":"前端","level":"1.3","depth":1,"path":"前端/README.md","ref":"前端/README.md","articles":[{"title":"reduce用法","level":"1.3.1","depth":2,"path":"前端/reduce.md","ref":"前端/reduce.md","articles":[]},{"title":"继承原理","level":"1.3.2","depth":2,"path":"前端/继承.md","ref":"前端/继承.md","articles":[]}]},"previous":{"title":"前言","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"基础题/基础题.md","mtime":"2019-09-24T07:54:33.223Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-09-23T07:00:32.966Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"前端题库","level":"1.2","depth":1,"next":{"title":"前端","level":"1.3","depth":1,"path":"前端/README.md","ref":"前端/README.md","articles":[{"title":"reduce用法","level":"1.3.1","depth":2,"path":"前端/reduce.md","ref":"前端/reduce.md","articles":[]},{"title":"继承原理","level":"1.3.2","depth":2,"path":"前端/继承.md","ref":"前端/继承.md","articles":[]}]},"previous":{"title":"前言","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"基础题/基础题.md","mtime":"2019-09-24T07:57:39.261Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-09-23T07:00:32.966Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
