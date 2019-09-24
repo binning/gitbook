@@ -511,112 +511,112 @@ context.fn = <span class="hljs-keyword">this</span>
   }
 }
 </code></pre>
-```js</li>
+</li>
 </ul>
-<p>Function.prototype.uncurrying = function() {
-    let _this = this // &#x8FD9;&#x91CC;&#x6307; Array.prototype.push
-    return function() {
-        return Function.prototype.call.apply(_this, arguments)
-        // 1&#x3001;&#x8FD9;&#x91CC;&#x6682;&#x65F6;&#x5C06; Function.prototype.call &#x4E2D;&#x7684; call &#x65B9;&#x6CD5;&#x53EB;&#x505A; changeFn
-        // 2&#x3001;&#x90A3;&#x4E48; Function.prototype.changeFn.apply(Array.prototype.push, arguments)
-        // 3&#x3001;Array.prototype.push.changeFn(arguments)
-        // 4&#x3001;changeFn &#x7B49;&#x4E8E; Function.prototype.call &#x4E2D;&#x7684; call &#x65B9;&#x6CD5;
-        // 5&#x3001;&#x6700;&#x7EC8;&#x7B49;&#x4EF7;&#x4E8E; Array.prototype.push.call(arguments)
-        // 6&#x3001;call &#x65B9;&#x6CD5;&#x63A5;&#x53D7;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x4EE3;&#x8868;&#x4E0A;&#x4E0B;&#x6587;&#xFF0C;&#x8FDB;&#x4E00;&#x6B65;&#x62C6;&#x5206; Array.prototype.push.call(arguments[0], ...arguments[n-1])
+<pre><code class="lang-js"><span class="hljs-built_in">Function</span>.prototype.uncurrying = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">let</span> _this = <span class="hljs-keyword">this</span> <span class="hljs-comment">// &#x8FD9;&#x91CC;&#x6307; Array.prototype.push</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Function</span>.prototype.call.apply(_this, <span class="hljs-built_in">arguments</span>)
+        <span class="hljs-comment">// 1&#x3001;&#x8FD9;&#x91CC;&#x6682;&#x65F6;&#x5C06; Function.prototype.call &#x4E2D;&#x7684; call &#x65B9;&#x6CD5;&#x53EB;&#x505A; changeFn</span>
+        <span class="hljs-comment">// 2&#x3001;&#x90A3;&#x4E48; Function.prototype.changeFn.apply(Array.prototype.push, arguments)</span>
+        <span class="hljs-comment">// 3&#x3001;Array.prototype.push.changeFn(arguments)</span>
+        <span class="hljs-comment">// 4&#x3001;changeFn &#x7B49;&#x4E8E; Function.prototype.call &#x4E2D;&#x7684; call &#x65B9;&#x6CD5;</span>
+        <span class="hljs-comment">// 5&#x3001;&#x6700;&#x7EC8;&#x7B49;&#x4EF7;&#x4E8E; Array.prototype.push.call(arguments)</span>
+        <span class="hljs-comment">// 6&#x3001;call &#x65B9;&#x6CD5;&#x63A5;&#x53D7;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x4EE3;&#x8868;&#x4E0A;&#x4E0B;&#x6587;&#xFF0C;&#x8FDB;&#x4E00;&#x6B65;&#x62C6;&#x5206; Array.prototype.push.call(arguments[0], ...arguments[n-1])</span>
     }
 }
-let push = Array.prototype.push.uncurrying()
-let obj = {}
-push(obj, &apos;hh&apos;) // obj &#x4EE3;&#x8868; Array.prototype.push &#x7684;&#x4E0A;&#x4E0B;&#x6587;&#xFF0C;&#x540E;&#x9762;&#x7684;&#x90FD;&#x662F;&#x53C2;&#x6570; Array.prototype.push &#x7684;&#x53C2;&#x6570;</p>
-<p>// &#x5B9E;&#x9645;&#x4E0A;&#x5E73;&#x5E38;&#x6211;&#x4EEC;&#x662F;&#x8FD9;&#x4E48;&#x5199;&#x7684;
-Array.prototype.push.call(obj, &apos;hh&apos;) // obj &#x4EE3;&#x8868; Array.prototype.push &#x7684;&#x4E0A;&#x4E0B;&#x6587;&#xFF0C;&#x540E;&#x9762;&#x7684;&#x90FD;&#x662F;&#x53C2;&#x6570; Array.prototype.push &#x7684;&#x53C2;&#x6570;</p>
-<pre><code>
-- 7.&#x624B;&#x5199;&#x4E00;&#x4E2A;Promise
-```js
-function Promise(excutor) {
-  let self = this
-  self.status = &apos;pending&apos;
-  self.value = null
-  self.reason = null
-  self.onFulfilledCallbacks = []
-  self.onRejectedCallbacks = []
-  function resolve(value) {
-    if (self.status === &apos;pending&apos;) {
-      self.value = value
-      self.status = &apos;fulfilled&apos;
-      self.onFulfilledCallbacks.forEach(item =&gt; item())
-    }
-  }
-  function reject(reason) {
-    if (self.status === &apos;pending&apos;) {
-      self.reason = reason
-      self.status = &apos;rejected&apos;
-      self.onRejectedCallbacks.forEach(item =&gt; item())
-    }
-  }
-  try {
-    excutor(resolve, reject)
-  } catch (err) {
-    reject(err)
+<span class="hljs-keyword">let</span> push = <span class="hljs-built_in">Array</span>.prototype.push.uncurrying()
+<span class="hljs-keyword">let</span> obj = {}
+push(obj, <span class="hljs-string">&apos;hh&apos;</span>) <span class="hljs-comment">// obj &#x4EE3;&#x8868; Array.prototype.push &#x7684;&#x4E0A;&#x4E0B;&#x6587;&#xFF0C;&#x540E;&#x9762;&#x7684;&#x90FD;&#x662F;&#x53C2;&#x6570; Array.prototype.push &#x7684;&#x53C2;&#x6570;</span>
+<span class="hljs-comment">// &#x5B9E;&#x9645;&#x4E0A;&#x5E73;&#x5E38;&#x6211;&#x4EEC;&#x662F;&#x8FD9;&#x4E48;&#x5199;&#x7684;</span>
+<span class="hljs-built_in">Array</span>.prototype.push.call(obj, <span class="hljs-string">&apos;hh&apos;</span>) <span class="hljs-comment">// obj &#x4EE3;&#x8868; Array.prototype.push &#x7684;&#x4E0A;&#x4E0B;&#x6587;&#xFF0C;&#x540E;&#x9762;&#x7684;&#x90FD;&#x662F;&#x53C2;&#x6570; Array.prototype.push &#x7684;&#x53C2;&#x6570;</span>
+</code></pre>
+<ul>
+<li>7.&#x624B;&#x5199;&#x4E00;&#x4E2A;Promise<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Promise</span>(<span class="hljs-params">excutor</span>) </span>{
+<span class="hljs-keyword">let</span> self = <span class="hljs-keyword">this</span>
+self.status = <span class="hljs-string">&apos;pending&apos;</span>
+self.value = <span class="hljs-literal">null</span>
+self.reason = <span class="hljs-literal">null</span>
+self.onFulfilledCallbacks = []
+self.onRejectedCallbacks = []
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">resolve</span>(<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">if</span> (self.status === <span class="hljs-string">&apos;pending&apos;</span>) {
+    self.value = value
+    self.status = <span class="hljs-string">&apos;fulfilled&apos;</span>
+    self.onFulfilledCallbacks.forEach(item =&gt; item())
   }
 }
-Promise.prototype.then = function (onFulfilled, onRejected) {
-  onFulfilled = typeof onFulfilled === &apos;function&apos; ? onFulfilled :  function (data) {resolve(data)}
-  onRejected = typeof onRejected === &apos;function&apos; ? onRejected : function (err) {throw err}
-  let self = this
-  if (self.status === &apos;fulfilled&apos;) {
-    return new Promise((resolve, reject) =&gt; {
-      try {
-        let x = onFulfilled(self.value)
-        if (x instanceof Promise) {
-          x.then(resolve, reject)
-        } else {
-          resolve(x)
-        }
-      } catch (err) {
-        reject(err)
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reject</span>(<span class="hljs-params">reason</span>) </span>{
+  <span class="hljs-keyword">if</span> (self.status === <span class="hljs-string">&apos;pending&apos;</span>) {
+    self.reason = reason
+    self.status = <span class="hljs-string">&apos;rejected&apos;</span>
+    self.onRejectedCallbacks.forEach(item =&gt; item())
+  }
+}
+<span class="hljs-keyword">try</span> {
+  excutor(resolve, reject)
+} <span class="hljs-keyword">catch</span> (err) {
+  reject(err)
+}
+}
+<span class="hljs-built_in">Promise</span>.prototype.then = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">onFulfilled, onRejected</span>) </span>{
+onFulfilled = <span class="hljs-keyword">typeof</span> onFulfilled === <span class="hljs-string">&apos;function&apos;</span> ? onFulfilled :  <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">data</span>) </span>{resolve(data)}
+onRejected = <span class="hljs-keyword">typeof</span> onRejected === <span class="hljs-string">&apos;function&apos;</span> ? onRejected : <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>{<span class="hljs-keyword">throw</span> err}
+<span class="hljs-keyword">let</span> self = <span class="hljs-keyword">this</span>
+<span class="hljs-keyword">if</span> (self.status === <span class="hljs-string">&apos;fulfilled&apos;</span>) {
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((resolve, reject) =&gt; {
+    <span class="hljs-keyword">try</span> {
+      <span class="hljs-keyword">let</span> x = onFulfilled(self.value)
+      <span class="hljs-keyword">if</span> (x <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Promise</span>) {
+        x.then(resolve, reject)
+      } <span class="hljs-keyword">else</span> {
+        resolve(x)
+      }
+    } <span class="hljs-keyword">catch</span> (err) {
+      reject(err)
+    }
+  })
+}
+<span class="hljs-keyword">if</span> (self.status === <span class="hljs-string">&apos;rejected&apos;</span>) {
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((resolve, reject) =&gt; {
+    <span class="hljs-keyword">try</span> {
+      <span class="hljs-keyword">let</span> x = onRejected(self.reason)
+      <span class="hljs-keyword">if</span> (x <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Promise</span>) {
+        x.then(resolve, reject)
+      } <span class="hljs-keyword">else</span> {
+        resolve(x)
+      }
+    } <span class="hljs-keyword">catch</span> (err) {
+      reject(err)
+    }
+  })
+}
+<span class="hljs-keyword">if</span> (self.status === <span class="hljs-string">&apos;pending&apos;</span>) {
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((resolve, reject) =&gt; {
+    self.onFulfilledCallbacks.push(() =&gt; {
+      <span class="hljs-keyword">let</span> x = onFulfilled(self.value)
+      <span class="hljs-keyword">if</span> (x <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Promise</span>) {
+        x.then(resolve, reject)
+      } <span class="hljs-keyword">else</span> {
+        resolve(x)
       }
     })
-  }
-  if (self.status === &apos;rejected&apos;) {
-    return new Promise((resolve, reject) =&gt; {
-      try {
-        let x = onRejected(self.reason)
-        if (x instanceof Promise) {
-          x.then(resolve, reject)
-        } else {
-          resolve(x)
-        }
-      } catch (err) {
-        reject(err)
+    self.onRejectedCallbacks.push(() =&gt; {
+      <span class="hljs-keyword">let</span> x = onRejected(self.reason)
+      <span class="hljs-keyword">if</span> (x <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Promise</span>) {
+        x.then(resolve, reject)
+      } <span class="hljs-keyword">else</span> {
+        resolve(x)
       }
     })
-  }
-  if (self.status === &apos;pending&apos;) {
-    return new Promise((resolve, reject) =&gt; {
-      self.onFulfilledCallbacks.push(() =&gt; {
-        let x = onFulfilled(self.value)
-        if (x instanceof Promise) {
-          x.then(resolve, reject)
-        } else {
-          resolve(x)
-        }
-      })
-      self.onRejectedCallbacks.push(() =&gt; {
-        let x = onRejected(self.reason)
-        if (x instanceof Promise) {
-          x.then(resolve, reject)
-        } else {
-          resolve(x)
-        }
-      })
-    })
-  }
+  })
 }
-Promise.prototype.catch = function (fn) {
-  return this.then(null, fn)
 }
-</code></pre><ul>
+<span class="hljs-built_in">Promise</span>.prototype.catch = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">fn</span>) </span>{
+<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.then(<span class="hljs-literal">null</span>, fn)
+}
+</code></pre>
+</li>
 <li><p>8.&#x624B;&#x5199;&#x9632;&#x6296;(Debouncing)&#x548C;&#x8282;&#x6D41;(Throttling)
 &#x9632;&#x6296;&#x52A8;&#xFF1A;</p>
 <pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">debounce</span>(<span class="hljs-params">fn,wait=50,immediate</span>) </span>{
@@ -647,54 +647,57 @@ Promise.prototype.catch = function (fn) {
 </li>
 <li><p>9.&#x624B;&#x5199;&#x4E00;&#x4E2A;JS&#x6DF1;&#x62F7;&#x8D1D;(&#x7531;&#x6D45;&#x5165;&#x6DF1;&#x591A;&#x79CD;&#x89E3;&#x6CD5;)</p>
 </li>
-<li>10.&#x624B;&#x5199;&#x4E00;&#x4E2A;instanceOf&#x539F;&#x7406;
-```js</li>
-</ul>
-<p>function instance<em>of(L, R) {//L &#x8868;&#x793A;&#x5DE6;&#x8868;&#x8FBE;&#x5F0F;&#xFF0C;R &#x8868;&#x793A;&#x53F3;&#x8868;&#x8FBE;&#x5F0F; 
-    var O = R.prototype;   // &#x53D6; R &#x7684;&#x663E;&#x793A;&#x539F;&#x578B; 
-    L = L.<strong>proto</strong>;  // &#x53D6; L &#x7684;&#x9690;&#x5F0F;&#x539F;&#x578B;
-    while (true) {<br>        if (L === null)<br>             return false;<br>        if (O === L)  // &#x5F53; O &#x663E;&#x5F0F;&#x539F;&#x578B; &#x4E25;&#x683C;&#x7B49;&#x4E8E;  L&#x9690;&#x5F0F;&#x539F;&#x578B; &#x65F6;&#xFF0C;&#x8FD4;&#x56DE;true
-             return true;<br>        L = L.<em>_proto</em></em>;<br>    }
-}</p>
-<pre><code>- 11.&#x624B;&#x5199;&#x4E00;&#x4E2A;map&#x548C;reduce
-```js
-(function() {
-    var selfMap = function(fn, context) { // fn: &#x56DE;&#x8C03;  context:&#x56DE;&#x8C03;&#x4F5C;&#x7528;&#x57DF;&#x6307;&#x5B9A;&#x7684;this
-        // 1. &#x83B7;&#x53D6;&#x8C03;&#x7528;&#x8005;this,&#x5E76;&#x8F6C;&#x4E3A;&#x6570;&#x7EC4;
-        var arr = ([]).slice.call(this);
-        // 2. &#x904D;&#x5386;&#x8C03;&#x7528;&#x8005;
-        var arrMap = [];
-        for(var i = 0; i &lt; arr.length; i++) {
-            if(!arr.hasOwnProperty(i)) {
-                continue;
-            }
-            arrMap.push(fn.call(context, arr[i], i, this));
-        }
-        return arrMap;
-    }
-    var selfReduce = function(fn, initialValue) {
-        var arr = ([]).slice.call(this);
-        // &#x901A;&#x8FC7;&#x5224;&#x65AD;&#x5165;&#x53C2;&#x957F;&#x5EA6;,&#x53EF;&#x4EE5;&#x907F;&#x514D;&#x8FC7;&#x6EE4;initialValue&#x4F20;&#x5165;&#x7684;&#x975E;&#x6CD5;&#x503C;(0,undifind,...)
-        if(arguments.length === 2) {
-            arr.unshift(initialValue);
-        }
-        var result = arr[0];
-        for(var i = 1; i &lt; arr.length; i++) {
-            if(!arr.hasOwnProperty(i)) {
-                continue;
-            }
-            // &#x5C06;&#x7B2C;&#x4E00;&#x6B21;&#x7684;&#x51FA;&#x53C2;&#x4F5C;&#x4E3A;&#x7B2C;&#x4E8C;&#x6B21;&#x7684;&#x5165;&#x53C2;
-            result = fn.call(null, result, arr[i], i, this);
-        }
-        return result;
-    }
-    Object.prototype[&quot;selfReduce&quot;] = selfReduce;
-    Object.prototype[&quot;selfMap&quot;] = selfMap;
+<li>10.&#x624B;&#x5199;&#x4E00;&#x4E2A;instanceOf&#x539F;&#x7406;<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">instance_of</span>(<span class="hljs-params">L, R</span>) </span>{<span class="hljs-comment">//L &#x8868;&#x793A;&#x5DE6;&#x8868;&#x8FBE;&#x5F0F;&#xFF0C;R &#x8868;&#x793A;&#x53F3;&#x8868;&#x8FBE;&#x5F0F; </span>
+  <span class="hljs-keyword">var</span> O = R.prototype;   <span class="hljs-comment">// &#x53D6; R &#x7684;&#x663E;&#x793A;&#x539F;&#x578B; </span>
+  L = L.__proto__;  <span class="hljs-comment">// &#x53D6; L &#x7684;&#x9690;&#x5F0F;&#x539F;&#x578B;</span>
+  <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) {    
+      <span class="hljs-keyword">if</span> (L === <span class="hljs-literal">null</span>)      
+           <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;   
+      <span class="hljs-keyword">if</span> (O === L)  <span class="hljs-comment">// &#x5F53; O &#x663E;&#x5F0F;&#x539F;&#x578B; &#x4E25;&#x683C;&#x7B49;&#x4E8E;  L&#x9690;&#x5F0F;&#x539F;&#x578B; &#x65F6;&#xFF0C;&#x8FD4;&#x56DE;true</span>
+           <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;   
+      L = L.__proto__;  
+  }
+}
+</code></pre>
+</li>
+<li>11.&#x624B;&#x5199;&#x4E00;&#x4E2A;map&#x548C;reduce<pre><code class="lang-js">(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">var</span> selfMap = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">fn, context</span>) </span>{ <span class="hljs-comment">// fn: &#x56DE;&#x8C03;  context:&#x56DE;&#x8C03;&#x4F5C;&#x7528;&#x57DF;&#x6307;&#x5B9A;&#x7684;this</span>
+      <span class="hljs-comment">// 1. &#x83B7;&#x53D6;&#x8C03;&#x7528;&#x8005;this,&#x5E76;&#x8F6C;&#x4E3A;&#x6570;&#x7EC4;</span>
+      <span class="hljs-keyword">var</span> arr = ([]).slice.call(<span class="hljs-keyword">this</span>);
+      <span class="hljs-comment">// 2. &#x904D;&#x5386;&#x8C03;&#x7528;&#x8005;</span>
+      <span class="hljs-keyword">var</span> arrMap = [];
+      <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; arr.length; i++) {
+          <span class="hljs-keyword">if</span>(!arr.hasOwnProperty(i)) {
+              <span class="hljs-keyword">continue</span>;
+          }
+          arrMap.push(fn.call(context, arr[i], i, <span class="hljs-keyword">this</span>));
+      }
+      <span class="hljs-keyword">return</span> arrMap;
+  }
+  <span class="hljs-keyword">var</span> selfReduce = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">fn, initialValue</span>) </span>{
+      <span class="hljs-keyword">var</span> arr = ([]).slice.call(<span class="hljs-keyword">this</span>);
+      <span class="hljs-comment">// &#x901A;&#x8FC7;&#x5224;&#x65AD;&#x5165;&#x53C2;&#x957F;&#x5EA6;,&#x53EF;&#x4EE5;&#x907F;&#x514D;&#x8FC7;&#x6EE4;initialValue&#x4F20;&#x5165;&#x7684;&#x975E;&#x6CD5;&#x503C;(0,undifind,...)</span>
+      <span class="hljs-keyword">if</span>(<span class="hljs-built_in">arguments</span>.length === <span class="hljs-number">2</span>) {
+          arr.unshift(initialValue);
+      }
+      <span class="hljs-keyword">var</span> result = arr[<span class="hljs-number">0</span>];
+      <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">1</span>; i &lt; arr.length; i++) {
+          <span class="hljs-keyword">if</span>(!arr.hasOwnProperty(i)) {
+              <span class="hljs-keyword">continue</span>;
+          }
+          <span class="hljs-comment">// &#x5C06;&#x7B2C;&#x4E00;&#x6B21;&#x7684;&#x51FA;&#x53C2;&#x4F5C;&#x4E3A;&#x7B2C;&#x4E8C;&#x6B21;&#x7684;&#x5165;&#x53C2;</span>
+          result = fn.call(<span class="hljs-literal">null</span>, result, arr[i], i, <span class="hljs-keyword">this</span>);
+      }
+      <span class="hljs-keyword">return</span> result;
+  }
+  <span class="hljs-built_in">Object</span>.prototype[<span class="hljs-string">&quot;selfReduce&quot;</span>] = selfReduce;
+  <span class="hljs-built_in">Object</span>.prototype[<span class="hljs-string">&quot;selfMap&quot;</span>] = selfMap;
 })();
-</code></pre><ul>
+</code></pre>
+</li>
 <li>12.&#x624B;&#x5199;&#x5B9E;&#x73B0;&#x62D6;&#x62FD;<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;drag&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;left:0;top:0;width:100px;height:100px&quot;</span>&gt;</span>&#x6309;&#x4F4F;&#x62D6;&#x52A8;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
-<pre><code class="lang-js"><span class="hljs-comment">// &#x83B7;&#x53D6;DOM&#x5143;&#x7D20;  </span>
+<pre><code class="lang-js">    <span class="hljs-comment">// &#x83B7;&#x53D6;DOM&#x5143;&#x7D20;  </span>
     <span class="hljs-keyword">let</span> dragDiv = <span class="hljs-built_in">document</span>.getElementsByClassName(<span class="hljs-string">&quot;drag&quot;</span>)[<span class="hljs-number">0</span>];
     <span class="hljs-comment">// &#x9F20;&#x6807;&#x6309;&#x4E0B;&#x4E8B;&#x4EF6; &#x5904;&#x7406;&#x7A0B;&#x5E8F;</span>
     <span class="hljs-keyword">let</span> putDown = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) </span>{
@@ -828,7 +831,7 @@ function create(obj) {
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"前端题库","level":"1.2","depth":1,"next":{"title":"前端","level":"1.3","depth":1,"path":"前端/README.md","ref":"前端/README.md","articles":[{"title":"reduce用法","level":"1.3.1","depth":2,"path":"前端/reduce.md","ref":"前端/reduce.md","articles":[]},{"title":"继承原理","level":"1.3.2","depth":2,"path":"前端/继承.md","ref":"前端/继承.md","articles":[]}]},"previous":{"title":"前言","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"基础题/基础题.md","mtime":"2019-09-24T07:57:39.261Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-09-23T07:00:32.966Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"前端题库","level":"1.2","depth":1,"next":{"title":"前端","level":"1.3","depth":1,"path":"前端/README.md","ref":"前端/README.md","articles":[{"title":"reduce用法","level":"1.3.1","depth":2,"path":"前端/reduce.md","ref":"前端/reduce.md","articles":[]},{"title":"继承原理","level":"1.3.2","depth":2,"path":"前端/继承.md","ref":"前端/继承.md","articles":[]}]},"previous":{"title":"前言","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"基础题/基础题.md","mtime":"2019-09-24T07:59:53.764Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-09-23T07:00:32.966Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
